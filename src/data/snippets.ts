@@ -7,7 +7,7 @@ export interface CodeSnippet {
   keywords: string[];
 }
 
-export const SNIPPET_REGISTRY = {
+export const SNIPPET_REGISTRY: Record<string, CodeSnippet> = {
   mapFilter: {
     id: "map-filter",
     title: "Transforming and Filtering with .map() and .filter()",
@@ -84,7 +84,7 @@ const uniqueToEither = vipWishlist.symmetricDifference(promoEligible);`
   primary: "#0077ff",
 } satisfies Record<string, string>;`
   }
-} satisfies Record<string, CodeSnippet>; 
+};
 
 // Dynamically compile a strict unique keyword list for your combo lookup
 export const ALL_KEYWORDS = Array.from(

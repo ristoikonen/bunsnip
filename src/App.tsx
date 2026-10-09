@@ -1,10 +1,8 @@
 import { useMemo, useState } from "react";
 import { Code2, Sparkles } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -72,19 +70,15 @@ export default function App() {
               </span>
             </span>
           </a>
-          <Badge className="gap-1.5 border border-primary/20 bg-primary/10 text-primary" variant="outline">
-            <Sparkles className="size-3" aria-hidden="true" />
-            TypeScript snippets
-          </Badge>
+
         </div>
       </header>
 
-      <main className="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(15rem,0.75fr)_minmax(0,1.6fr)]">
+      <main className="relative mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-14">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(19.5rem,0.975fr)_minmax(0,2.08fr)]">
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="border-b border-border px-5 py-5">
               <CardTitle className="text-base">Find a snippet</CardTitle>
-              <CardDescription>Filter the library by keyword or title.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5 px-5 py-5">
               <SelectDropdown

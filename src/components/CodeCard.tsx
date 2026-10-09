@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Check, Clipboard } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -37,13 +36,6 @@ export default function CodeCard({ snippet }: CodeCardProps) {
               {highlightKeywords(snippet.title, snippet.keywords)}
             </CardTitle>
           </div>
-        </div>
-        <div aria-label="Snippet keywords" className="flex flex-wrap gap-2">
-          {snippet.keywords.map((keyword) => (
-            <Badge className="border-border bg-muted text-muted-foreground" key={keyword} variant="outline">
-              {keyword}
-            </Badge>
-          ))}
         </div>
         <div className="flex justify-end">
           <Button
