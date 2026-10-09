@@ -73,8 +73,8 @@ export default function App() {
         </div>
       </header>
 
-      <main className="relative mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-14">
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(19.5rem,0.975fr)_minmax(0,2.08fr)]">
+      <main className="relative mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-14">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(21rem,1.2fr)_minmax(0,1.8fr)]">
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="border-b border-border px-5 py-5">
               <CardTitle className="text-base">Find a snippet</CardTitle>
