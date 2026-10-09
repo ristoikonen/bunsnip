@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Code2, Sparkles } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -61,7 +60,7 @@ export default function App() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <a className="inline-flex min-w-0 items-center gap-2.5 font-semibold tracking-tight" href="/">
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Code2 className="size-4" aria-hidden="true" />
+              TS
             </span>
             <span className="flex min-w-0 flex-col">
               <span>BunSnip</span>
@@ -103,7 +102,7 @@ export default function App() {
             ) : (
               <Card className="flex min-h-64 items-center justify-center border-border bg-card shadow-sm">
                 <div className="px-6 text-center">
-                  <Code2 className="mx-auto mb-3 size-6 text-muted-foreground" aria-hidden="true" />
+                  
                   <p className="text-sm font-medium">No matching snippets</p>
                   <p className="mt-1 text-sm text-muted-foreground">
                     Try a different keyword to browse the library.
@@ -115,7 +114,8 @@ export default function App() {
         </div>
 
         <footer className="mt-10 border-t border-border pt-5 text-center text-xs text-muted-foreground">
-          Small examples for everyday TypeScript
+          Examples for TypeScript 7. &copy;Risto Ikonen 2026 <br/>
+          Structural UI by shadcn/ui. Presentation logic by React. Vite assembles. Bun packs and runs it all.
         </footer>
       </main>
     </div>

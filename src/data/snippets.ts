@@ -76,6 +76,20 @@ const commonItems = vipWishlist.intersection(promoEligible);
 const exclusiveVipItems = vipWishlist.difference(promoEligible);
 const uniqueToEither = vipWishlist.symmetricDifference(promoEligible);`
   },
+  TemporalZonedDateTime : {
+    id: "time-operations",
+    title: "Local Clock Math - When Australian clocks change",
+    keywords: ["Temporal", "ZonedDateTime" , "toPlainTime"],
+    code: `// Saturday night before clocks go forward in Sydney
+const satNight = Temporal.ZonedDateTime.from("2026-10-03T23:00:00+10:00[Australia/Sydney]");
+
+// Add exactly 12 hours of real elapsed time
+const sunMorning = satNight.add({ hours: 12 });
+
+// Temporal knows that 2:00 AM became 3:00 AM! 
+// It outputs 12:00 PM instead of 11:00 AM, adjusting for the lost hour perfectly.
+console.log(sunMorning.toPlainTime().toString()); // "12:00:00"`
+  },
   satisfiesOp: {
     id: "satisfies-op",
     title: "Safe Object Definition with satisfies",

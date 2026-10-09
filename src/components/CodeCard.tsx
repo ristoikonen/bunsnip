@@ -56,15 +56,6 @@ export default function CodeCard({ snippet }: CodeCardProps) {
       </CardHeader>
       <CardContent className="p-3 sm:p-4">
         <div className="overflow-hidden rounded-lg border border-border bg-slate-50">
-          <div className="flex h-10 items-center gap-1.5 border-b border-border px-4">
-            <span
-              aria-label="TypeScript"
-              className="inline-flex size-5 items-center justify-center rounded-sm bg-[#3178c6] text-[9px] font-bold leading-none text-white"
-            >
-              TS
-            </span>
-            <span className="ml-2 font-mono text-[11px] text-muted-foreground">example.ts</span>
-          </div>
           <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-6 text-slate-800 sm:p-5 sm:text-sm">
             <code>{snippet.code}</code>
           </pre>
