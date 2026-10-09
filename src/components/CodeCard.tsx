@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Check, Clipboard, Code2 } from "lucide-react";
+import { Check, Clipboard } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { highlightKeywords } from "@/lib/highlightKeywords";
 import { type CodeSnippet } from "../data/snippets";
 
 interface CodeCardProps {
@@ -30,16 +30,22 @@ export default function CodeCard({ snippet }: CodeCardProps) {
 
   return (
     <Card className="overflow-hidden border-border bg-card shadow-sm">
-      <CardHeader className="gap-4 border-b border-border px-5 py-5 sm:px-6">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0 space-y-2">
-            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-              <Code2 className="size-3.5 text-primary" aria-hidden="true" />
-              TypeScript example
-            </div>
-            <CardTitle className="text-lg leading-snug">{snippet.title}</CardTitle>
-            <CardDescription>Ready to copy into your project.</CardDescription>
+      <CardHeader className="gap-3 border-b border-border px-5 py-5 sm:px-6">
+        <div className="flex min-w-0 items-start gap-3">
+          <div className="min-w-0">
+            <CardTitle className="text-lg leading-snug">
+              {highlightKeywords(snippet.title, snippet.keywords)}
+            </CardTitle>
           </div>
+        </div>
+        <div aria-label="Snippet keywords" className="flex flex-wrap gap-2">
+          {snippet.keywords.map((keyword) => (
+            <Badge className="border-border bg-muted text-muted-foreground" key={keyword} variant="outline">
+              {keyword}
+            </Badge>
+          ))}
+        </div>
+        <div className="flex justify-end">
           <Button
             aria-label={copied ? "Snippet copied" : "Copy snippet"}
             className="shrink-0"
@@ -55,20 +61,16 @@ export default function CodeCard({ snippet }: CodeCardProps) {
             {copied ? "Copied" : "Copy"}
           </Button>
         </div>
-        <div aria-label="Snippet keywords" className="flex flex-wrap gap-2">
-          {snippet.keywords.map((keyword) => (
-            <Badge className="border-border bg-muted text-muted-foreground" key={keyword} variant="outline">
-              {keyword}
-            </Badge>
-          ))}
-        </div>
       </CardHeader>
       <CardContent className="p-3 sm:p-4">
         <div className="overflow-hidden rounded-lg border border-border bg-slate-50">
           <div className="flex h-10 items-center gap-1.5 border-b border-border px-4">
-            <span className="size-2 rounded-full bg-slate-300" />
-            <span className="size-2 rounded-full bg-slate-300" />
-            <span className="size-2 rounded-full bg-slate-300" />
+            <span
+              aria-label="TypeScript"
+              className="inline-flex size-5 items-center justify-center rounded-sm bg-[#3178c6] text-[9px] font-bold leading-none text-white"
+            >
+              TS
+            </span>
             <span className="ml-2 font-mono text-[11px] text-muted-foreground">example.ts</span>
           </div>
           <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-6 text-slate-800 sm:p-5 sm:text-sm">

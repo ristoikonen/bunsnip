@@ -29,14 +29,11 @@ export default function App() {
     return found || filteredSnippets[0] || null;
   }, [selectedSnippetId, filteredSnippets]);
 
-  const snippetDropdownOptions = useMemo(
-    () =>
-      filteredSnippets.map((snippet) => ({
-        value: snippet.id,
-        label: snippet.title,
-      })),
-    [filteredSnippets],
-  );
+  const snippetDropdownOptions = Object.values(SNIPPET_REGISTRY).map((snippet) => ({
+    value: snippet.id,
+    label: snippet.title,
+    keywords: snippet.keywords,
+  }));
 
   const handleKeywordChange = (keyword: string) => {
     setSelectedKeyword(keyword);
@@ -48,6 +45,14 @@ export default function App() {
     }
   };
 
+  const handleSnippetChange = (snippetId: string) => {
+    setSelectedSnippetId(snippetId);
+    const snippet = Object.values(SNIPPET_REGISTRY).find((item) => item.id === snippetId);
+    if (selectedKeyword && snippet && !snippet.keywords.includes(selectedKeyword)) {
+      setSelectedKeyword("");
+    }
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <div
@@ -56,11 +61,16 @@ export default function App() {
       />
       <header className="relative border-b border-border/80 bg-white/90">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <a className="inline-flex items-center gap-2.5 font-semibold tracking-tight" href="/">
+          <a className="inline-flex min-w-0 items-center gap-2.5 font-semibold tracking-tight" href="/">
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Code2 className="size-4" aria-hidden="true" />
             </span>
-            <span>BunSnip</span>
+            <span className="flex min-w-0 flex-col">
+              <span>BunSnip</span>
+              <span className="hidden text-sm font-normal tracking-normal text-muted-foreground sm:block">
+                Browse focused examples, filter by operator, and copy a snippet when you need it.
+              </span>
+            </span>
           </a>
           <Badge className="gap-1.5 border border-primary/20 bg-primary/10 text-primary" variant="outline">
             <Sparkles className="size-3" aria-hidden="true" />
@@ -70,18 +80,6 @@ export default function App() {
       </header>
 
       <main className="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <section className="mb-8 max-w-2xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            A practical reference
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            TypeScript Operator Code Hub
-          </h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
-            Browse focused examples, filter by operator, and copy a snippet when you need it.
-          </p>
-        </section>
-
         <div className="grid items-start gap-5 lg:grid-cols-[minmax(15rem,0.75fr)_minmax(0,1.6fr)]">
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="border-b border-border px-5 py-5">
@@ -90,22 +88,18 @@ export default function App() {
             </CardHeader>
             <CardContent className="space-y-5 px-5 py-5">
               <SelectDropdown
-                label="Keyword or operator"
+                label="Code example"
+                value={activeSnippet?.id || ""}
+                options={snippetDropdownOptions}
+                onChange={handleSnippetChange}
+              />
+              <SelectDropdown
+                label="Filter by keyword"
                 value={selectedKeyword}
                 options={ALL_KEYWORDS}
                 defaultOptionLabel="All keywords"
                 onChange={handleKeywordChange}
               />
-              <SelectDropdown
-                label="Code example"
-                value={activeSnippet?.id || ""}
-                options={snippetDropdownOptions}
-                onChange={setSelectedSnippetId}
-              />
-              <div className="flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
-                <span>Available examples</span>
-                <span className="font-medium text-foreground">{filteredSnippets.length}</span>
-              </div>
             </CardContent>
           </Card>
 
