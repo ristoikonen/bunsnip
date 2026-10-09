@@ -1,5 +1,11 @@
-// src/components/SelectDropdown.tsx
-import { type ChangeEvent } from "react";
+import { useId } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DropdownOption {
   value: string;
@@ -14,6 +20,8 @@ interface SelectDropdownProps {
   onChange: (value: string) => void;
 }
 
+const DEFAULT_OPTION_VALUE = "__all_options__";
+
 export default function SelectDropdown({
   label,
   value,
@@ -21,47 +29,43 @@ export default function SelectDropdown({
   defaultOptionLabel,
   onChange,
 }: SelectDropdownProps) {
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    onChange(e.target.value);
-  };
+  const id = useId();
+  const selectedValue = value || (defaultOptionLabel ? DEFAULT_OPTION_VALUE : null);
 
   return (
-    <div style={{ marginBottom: "16px" }}>
-      <label style={{ display: "block", marginBottom: "6px", fontWeight: "bold", fontSize: "14px" }}>
+    <div className="grid gap-2">
+      <label className="text-sm font-medium text-foreground" htmlFor={id}>
         {label}
       </label>
-      <select
-        value={value}
-        onChange={handleChange}
-        style={{
-          width: "100%",
-          padding: "10px",
-          fontSize: "14px",
-          borderRadius: "6px",
-          border: "1px solid #cbd5e1",
-          backgroundColor: "#ffffff",
-          cursor: "pointer",
+      <Select
+        value={selectedValue}
+        onValueChange={(nextValue) => {
+          onChange(nextValue === DEFAULT_OPTION_VALUE ? "" : nextValue ?? "");
         }}
       >
-        {defaultOptionLabel && <option value="">{defaultOptionLabel}</option>}
-        
-        {options.map((opt) => {
-          // Handle simple string array format
-          if (typeof opt === "string") {
+        <SelectTrigger className="h-10 w-full bg-background/70" id={id}>
+          <SelectValue placeholder={`Choose ${label.toLowerCase()}`} />
+        </SelectTrigger>
+        <SelectContent>
+          {defaultOptionLabel && (
+            <SelectItem value={DEFAULT_OPTION_VALUE}>{defaultOptionLabel}</SelectItem>
+          )}
+          {options.map((option) => {
+            if (typeof option === "string") {
+              return (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              );
+            }
             return (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
             );
-          }
-          // Handle structured object format
-          return (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          );
-        })}
-      </select>
+          })}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

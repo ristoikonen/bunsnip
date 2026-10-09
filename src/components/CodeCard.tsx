@@ -1,5 +1,14 @@
-// src/components/CodeCard.tsx
 import { useState } from "react";
+import { Check, Clipboard, Code2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { type CodeSnippet } from "../data/snippets";
 
 interface CodeCardProps {
@@ -13,83 +22,63 @@ export default function CodeCard({ snippet }: CodeCardProps) {
     try {
       await navigator.clipboard.writeText(snippet.code);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset state after 2 seconds
-    } catch (err) {
-      console.error("Failed to copy text: ", err);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Failed to copy snippet to clipboard:", error);
     }
   };
 
   return (
-    <div style={{ 
-      border: "1px solid #e2e8f0", 
-      borderRadius: "8px", 
-      padding: "20px", 
-      boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
-      backgroundColor: "#ffffff",
-      position: "relative"
-    }}>
-      {/* Title & Copy Action header area */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
-        <h3 style={{ margin: 0, color: "#1a202c", fontSize: "18px" }}>{snippet.title}</h3>
-        
-        <button
-          onClick={handleCopy}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "4px",
-            background: copied ? "#48bb78" : "#edf2f7",
-            color: copied ? "#ffffff" : "#4a5568",
-            border: "none",
-            padding: "6px 12px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontSize: "13px",
-            fontWeight: "500",
-            transition: "all 0.2s ease"
-          }}
-        >
-          {/* Material Symbols Outlined Icon */}
-          <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
-            {copied ? "check" : "content_copy"}
-          </span>
-          {copied ? "Copied!" : "Copy"}
-        </button>
-      </div>
-      
-      {/* Keywords / Tags Row */}
-      <div style={{ marginBottom: "16px" }}>
-        {snippet.keywords.map((kw) => (
-          <span 
-            key={kw} 
-            style={{ 
-              background: "#e2e8f0", 
-              color: "#4a5568", 
-              padding: "4px 10px", 
-              borderRadius: "12px", 
-              fontSize: "12px", 
-              marginRight: "8px", 
-              fontWeight: "500" 
-            }}
+    <Card className="overflow-hidden border-border bg-card shadow-sm">
+      <CardHeader className="gap-4 border-b border-border px-5 py-5 sm:px-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0 space-y-2">
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+              <Code2 className="size-3.5 text-primary" aria-hidden="true" />
+              TypeScript example
+            </div>
+            <CardTitle className="text-lg leading-snug">{snippet.title}</CardTitle>
+            <CardDescription>Ready to copy into your project.</CardDescription>
+          </div>
+          <Button
+            aria-label={copied ? "Snippet copied" : "Copy snippet"}
+            className="shrink-0"
+            onClick={() => void handleCopy()}
+            size="sm"
+            variant={copied ? "secondary" : "outline"}
           >
-            #{kw}
-          </span>
-        ))}
+            {copied ? (
+              <Check data-icon="inline-start" aria-hidden="true" />
+            ) : (
+              <Clipboard data-icon="inline-start" aria-hidden="true" />
+            )}
+            {copied ? "Copied" : "Copy"}
+          </Button>
+        </div>
+        <div aria-label="Snippet keywords" className="flex flex-wrap gap-2">
+          {snippet.keywords.map((keyword) => (
+            <Badge className="border-border bg-muted text-muted-foreground" key={keyword} variant="outline">
+              {keyword}
+            </Badge>
+          ))}
+        </div>
+      </CardHeader>
+      <CardContent className="p-3 sm:p-4">
+        <div className="overflow-hidden rounded-lg border border-border bg-slate-50">
+          <div className="flex h-10 items-center gap-1.5 border-b border-border px-4">
+            <span className="size-2 rounded-full bg-slate-300" />
+            <span className="size-2 rounded-full bg-slate-300" />
+            <span className="size-2 rounded-full bg-slate-300" />
+            <span className="ml-2 font-mono text-[11px] text-muted-foreground">example.ts</span>
+          </div>
+          <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-6 text-slate-800 sm:p-5 sm:text-sm">
+            <code>{snippet.code}</code>
+          </pre>
+        </div>
+      </CardContent>
+      <div aria-live="polite" className="sr-only" role="status">
+        {copied ? "Snippet copied to clipboard." : ""}
       </div>
-
-      {/* Code window block */}
-      <pre style={{ 
-        backgroundColor: "#1a202c", 
-        color: "#edf2f7", 
-        padding: "16px", 
-        borderRadius: "6px", 
-        overflowX: "auto", 
-        fontSize: "14px", 
-        lineHeight: "1.5",
-        margin: 0
-      }}>
-        <code>{snippet.code}</code>
-      </pre>
-    </div>
+    </Card>
   );
 }
