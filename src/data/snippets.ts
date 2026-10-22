@@ -15,22 +15,23 @@ export const SNIPPET_REGISTRY: Record<string, CodeSnippet> = {
     code: `interface Product {
   id: number;
   name: string;
-  category: "Electronics" | "Apparel";
+  category: "IT" | "Apparel";
   price: number;
   inStock: boolean;
 }
 
 // Safe object array definition with the satisfies -operator
 const rawProducts = [
-  { id: 1, name: "Mechanical Keyboard", category: "Electronics", price: 150, inStock: true },
-  { id: 2, name: "Studio Monitor", category: "Electronics", price: 300, inStock: true },
-  { id: 3, name: "Out of Stock GPU", category: "Electronics", price: 800, inStock: false },
-  { id: 4, name: "Merino Wool Hoodie", category: "Apparel", price: 120, inStock: true }
+  { id: 1, name: "Keyboard", category: "IT", price: 150, inStock: true },
+  { id: 2, name: "Monitor", category: "IT", price: 300, inStock: true },
+  { id: 3, name: "GPU", category: "IT", price: 800, inStock: false },
+  { id: 4, name: "Merino Hoodie", category: "Apparel", price: 120, inStock: true }
 ] satisfies Product[];
 
-// Filter and Map pipeline: Calculate 10% discount for available electronics
+// Filter and Map pipeline
+// Calculate 10% discount for available IT products
 const discountedElectronics = rawProducts
-  .filter((p) => p.inStock && p.category === "Electronics")
+  .filter((p) => p.inStock && p.category === "IT")
   .map((p) => ({ ...p, finalPrice: +(p.price * 0.9).toFixed(2) }));`
   },
   arrayFromAsync: {
@@ -38,8 +39,8 @@ const discountedElectronics = rawProducts
     title: "Collecting an Async Iterable with Array.fromAsync()",
     keywords: ["Array.fromAsync", "async", "iterable"],
     code: `async function* fetchIncomingProducts() {
-  yield { id: 1, name: "Wireless Mouse", price: 45 };
-  yield { id: 2, name: "Mechanical Keyboard", price: 120 };
+  yield { id: 1, name: "Mouse", price: 45 };
+  yield { id: 2, name: "Keyboard", price: 120 };
 }
 
 const rawProducts = await Array.fromAsync(fetchIncomingProducts());
@@ -64,9 +65,9 @@ const catalogItems = allProductNames.slice(2);`
     code: `const inventoryByCategory = new Map<string, string[]>();
 
 const rawProducts = [
-  { category: 'Electronics', name: 'Mechanical Keyboard' },
-  { category: 'Electronics', name: 'Studio Monitor' },
-  { category: 'Apparel', name: 'Merino Wool Hoodie' }
+  { category: 'Electronics', name: 'Keyboard' },
+  { category: 'Electronics', name: 'Monitor' },
+  { category: 'Apparel', name: 'Merino Hoodie' }
 ];
 
 for (const product of rawProducts) {
@@ -84,12 +85,12 @@ for (const [category, items] of inventoryByCategory) {
     title: "Combining Wishlists with Set Operations",
     keywords: ["Set", "union", "intersection", "difference"],
     code: `const vipWishlist = new Set([
-  "Wireless Mouse",
-  "Mechanical Keyboard",
+  "Mouse",
+  "Keyboard",
   "Standing Desk",
 ]);
 const promoEligible = new Set([
-  "Mechanical Keyboard",
+  "Keyboard",
   "Standing Desk",
   "USB-C Hub",
 ]);
@@ -104,14 +105,16 @@ const uniqueToEither = vipWishlist.symmetricDifference(promoEligible);`
     title: "Local Clock Math - When Australian clocks change",
     keywords: ["Temporal", "ZonedDateTime" , "toPlainTime"],
     code: `// Saturday night before clocks go forward in Sydney
-const satNight = Temporal.ZonedDateTime.from("2026-10-03T23:00:00+10:00[Australia/Sydney]");
+const satNight = Temporal.ZonedDateTime
+  .from("2026-10-03T23:00:00+10:00[Australia/Sydney]");
 
 // Add exactly 12 hours of real elapsed time
 const sunMorning = satNight.add({ hours: 12 });
 
 // Temporal knows that 2:00 AM became 3:00 AM! 
-// It outputs 12:00 PM instead of 11:00 AM, adjusting for the lost hour perfectly.
-console.log(sunMorning.toPlainTime().toString()); // "12:00:00"`
+// It outputs 12:00 PM instead of 11:00 AM, 
+// adjusting for the lost hour perfectly.
+console.log(sunMorning.toPlainTime().toString());`
   },
   satisfiesOp: {
     id: "satisfies-op",
@@ -123,7 +126,8 @@ console.log(sunMorning.toPlainTime().toString()); // "12:00:00"`
   isTradeable: boolean;
 };
 
-// Validates against MarketConfig, but preserves exact literal types and precise method access
+// Validates against MarketConfig, but preserves 
+// exact literal types and precise method access
 const crudeOilConfig = {
   ticker: "CL=F",
   retracementLevels: {
@@ -146,7 +150,7 @@ console.log(shallow.toUpperCase()); `
   recordUnion: {
     id: "record-key",
     title: "Union of string literals to Record",
-    keywords: ["union", "Record", "key"],
+    keywords: ["union", "Record"],
     code: `type UserRole = 'admin' | 'editor' | 'viewer';
 
 // TypeScript forces you to implement all three strategies
@@ -158,9 +162,11 @@ const RedirectStrategies: Record<UserRole, string> = {
 
 OR
 
-const FlexibleStrategies: Record<UserRole, (id?: string | number) => string> = {
+const FlexStrategies: Record<UserRole, (id?: string | number) => string> = 
+{
   admin: (id) => \`/dashboard/admin/\${id}\`,
-`
+  ...
+}`
   },
 
 

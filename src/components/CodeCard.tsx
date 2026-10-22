@@ -12,9 +12,10 @@ import { type CodeSnippet } from "../data/snippets";
 
 interface CodeCardProps {
   snippet: CodeSnippet;
+  onKeywordSelect?: (keyword: string) => void;
 }
 
-export default function CodeCard({ snippet }: CodeCardProps) {
+export default function CodeCard({ snippet, onKeywordSelect }: CodeCardProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -54,6 +55,23 @@ export default function CodeCard({ snippet }: CodeCardProps) {
           </Button>
         </div>
       </CardHeader>
+      {snippet.keywords.length > 0 && onKeywordSelect && (
+        <div className="flex justify-end gap-2 px-5 sm:px-6 pb-4">
+          {snippet.keywords.map((keyword) => (
+            <a
+              key={keyword}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onKeywordSelect(keyword);
+              }}
+              className="rounded-full border border-border bg-background px-2 py-1 text-xs font-medium text-foreground hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer whitespace-nowrap"
+            >
+              {keyword}
+            </a>
+          ))}
+        </div>
+      )}
       <CardContent className="p-3 sm:p-4">
         <div className="overflow-hidden rounded-lg border border-border bg-slate-50">
           <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-6 text-slate-800 sm:p-5 sm:text-sm">

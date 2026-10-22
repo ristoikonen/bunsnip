@@ -99,7 +99,10 @@ export default function App() {
 
           <section aria-label="Snippet preview" className="min-w-0">
             {activeSnippet ? (
-              <CodeCard snippet={activeSnippet} />
+              <CodeCard
+                snippet={activeSnippet}
+                onKeywordSelect={setSelectedKeyword}
+              />
             ) : (
               <Card className="flex min-h-64 items-center justify-center border-border bg-card shadow-sm">
                 <div className="px-6 text-center">
