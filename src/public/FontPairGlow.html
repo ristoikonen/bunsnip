@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Pairings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&icon_names=favorite,home,search,settings" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=favorite,home,search,settings" rel="stylesheet" />
+    <link rel="stylesheet" href="fontpairs.css"/>
+</head>
+
+<body>
+
+    <!-- HEADER: TODO:ADD MENU HERE USING MATERIALS SYMBOLS  <span class="material-symbols-outlined size-48">home</span> -->
+    <header class="header-dark">
+        <div>
+            <a href="/" title="Let's go Home" >
+            <!-- <span class="material-symbols-outlined size-40">home</span> -->
+            <small>Home</small>
+            </a>
+        </div>
+    </header>
+
+
+    <!-- FONT PAIR MENU --> 
+    <nav class="main-nav">
+        <div class="container nav-wrapper">
+            <div class="sec_logo">Font pairings playground</div>
+                <div class="dropdown-container" id="dropdownContainer">
+                    <button class="dropdown-button" id="dropdownBtn" aria-haspopup="true" aria-expanded="false">
+                        <span>Select a pair</span>
+                        <span id="arrowIndicator" class="arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair1"/>
+                            <span>Montserrat + Source Sans 3</span>
+                        </label>
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair2"/>
+                            <span>Merriweather + Open Sans</span>
+                        </label>
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair3" checked/>
+                            <span>Poppins + Lato</span>
+                        </label>
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair4"/>
+                            <span>Roboto + Roboto</span>
+                        </label>
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair5"/>
+                            <span>Gotham + Roboto</span>
+                        </label>
+                        <label class="pair-option">
+                            <input type="checkbox" name="font-pair" value="pair6"/>
+                            <span>Raleway + Bitter</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <header class="content-section">
+        <div class="container">
+            <h1 id="fontHeader1">Dynamic Typography</h1>
+            <h1 id="fontHeader2">using Google CDN's fonts</h1>
+            <h2 id="fontHeader3">Testing curated open-source font setups.</h2>
+            <p id="fontHeader4" class="description">
+                This environment enables rapid switching between distinct design philosophies. When you modify the active checkbox selection above, the DOM updates its CSS custom properties instantly. Observe how the weight balance transitions seamlessly between geometric structural styles and warm, high-performance interface typography.
+            </p>
+            <div class="test-area" contenteditable="true" placeholder="Test font here." id="testarea" >
+                Test font here
+            </div>
+            <small id="testerFont"></small>
+        </div>
+    </header>
+
+    <!-- FOOTER: LINKS TO FONTS.GOOGLE.COM -->
+    <footer class="container">
+        <BR/>
+        <ul class="menu-list">
+                <li><a href="https://fonts.google.com/specimen/Montserrat" className="menu-link">Montserrat</a></li>
+                <li><a href="https://fonts.google.com/specimen/Merriweather" className="menu-link">Merriweather</a></li>
+                <li><a href="https://fonts.google.com/specimen/Lato" className="menu-link">Lato</a></li>
+                <li><a href="https://fonts.google.com/specimen/Roboto" className="menu-link">Roboto</a></li>
+                <li><a href="https://fonts.google.com/specimen/Raleway" className="menu-link">Raleway</a></li>
+                <li><a href="https://fonts.google.com/specimen/Bitter" className="menu-link">Bitter</a></li>
+            </ul>
+        <BR/>
+        <small>Fonts at fonts.google.com</small>
+        <BR/>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        const pairings = {
+            pair1: {
+                name: "Montserrat + Source Sans 3",
+                header: "'Montserrat', sans-serif",
+                header2: "Montserrat",
+                menu: "'Source Sans 3', sans-serif",
+                menu2: "Source Sans 3",
+                url: "https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Source+Sans+3:wght@400;700&display=swap"
+            },
+            pair2: {
+                name: "Merriweather + Open Sans",
+                header: "'Merriweather', serif",
+                header2: "Merriweather",
+                menu: "'Open Sans', sans-serif",
+                menu2: "Open Sans",
+                url: "https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;700&display=swap"
+            },
+            pair3: {
+                name: "Poppins + Lato",
+                header: "'Poppins', sans-serif",
+                header2: "Poppins",
+                menu: "'Lato', sans-serif",
+                menu2: "Lato",
+                url: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;800&display=swap"
+            },
+            pair4: {
+                name: "Roboto + Roboto",
+                header: "'Roboto', sans-serif",
+                header2: "Roboto",
+                menu: "'Roboto', sans-serif",
+                menu2: "Roboto",
+                url: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+            },
+            pair5: {
+                name: "Gotham + Roboto",
+                header: "'Gotham', sans-serif",
+                header2: "Gotham",
+                menu: "'Roboto', sans-serif",
+                menu2: "Roboto",
+                url: "https://fonts.googleapis.com/css2?family=Gotham:wght@400;700&Roboto:wght@400;700;900&display=swap"
+            },
+            pair6: {
+                name: "Raleway  + Bitter",
+                header: "'Raleway', sans-serif",
+                header2: "Raleway",
+                menu: "'Bitter', sans-serif",
+                menu2: "Bitter",
+                url: "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&family=Bitter:wght@400;700;900&display=swap"
+            }
+        };
+
+        const dropdownContainer = document.getElementById('dropdownContainer');
+        const dropdownBtn = document.getElementById('dropdownBtn');
+        const arrowIndicator = document.getElementById('arrowIndicator');
+        const dropdownBtnText = dropdownBtn.querySelector('span:first-child');
+        const fontHeader1Text = document.getElementById('fontHeader1');
+        const fontHeader2Text = document.getElementById('fontHeader2');
+        const fontHeader3Text = document.getElementById('fontHeader3');
+        const fontHeader4Text = document.getElementById('fontHeader4');
+        const testerFontText = document.getElementById('testerFont');
+        
+        const testArea = document.getElementById('testarea');
+        const checkboxes = document.querySelectorAll('input[name="font-pair"]');
+
+        // 1. STABLE TOGGLE LOGIC: Toggle on explicit click execution instead of unstable hovers
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = dropdownContainer.classList.toggle('is-active');
+            dropdownBtn.setAttribute('aria-expanded', isActive);
+            arrowIndicator.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+
+        // 2. FOCUS CONTAINMENT BLOCK: Prevent click propagation inside the layout options from closing it down
+        dropdownContainer.querySelector('.dropdown-content').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // 3. GLOBAL CLICK-AWAY CLOSE SYSTEM: Closes down reliably only when user explicitly targets alternate screen areas
+        window.addEventListener('click', function() {
+            if (dropdownContainer.classList.contains('is-active')) {
+                dropdownContainer.classList.remove('is-active');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+                arrowIndicator.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // 4. CHECKBOX EXCLUSIVITY CONTROL
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    checkboxes.forEach(cb => { if (cb !== this) cb.checked = false; });
+                    console.log(this.value);
+                    updateFonts(this.value);
+                } else {
+                    this.checked = true; // Block unchecking the singular chosen element state
+                }
+            });
+        });
+
+        function updateFonts(pairKey) {
+            const selectedPair = pairings[pairKey];
+            if (!document.querySelector(`link[href="${selectedPair.url}"]`)) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = selectedPair.url;
+                document.head.appendChild(link);
+                document.title.replace(selectedPair.name);
+            }
+
+            document.documentElement.style.setProperty('--header-font', selectedPair.header);
+            document.documentElement.style.setProperty('--menu-font', selectedPair.menu);
+            //document.getElementById('textContent').text = selectedPair.name;
+            testArea.innerHTML = "Test area: This is <strong>bold</strong> text and this is <i>italic text</i>";
+
+            fontHeader1Text.textContent  = `${selectedPair.header2}`;
+            fontHeader1Text.font  = `${selectedPair.header}`;
+            fontHeader2Text.textContent  = `${selectedPair.menu2}`;
+            fontHeader2Text.font  = `${selectedPair.menu}`;
+
+            fontHeader3Text.textContent  = 'This is ' + `${selectedPair.menu2}` + '. Testing curated open-source font setups.';
+            fontHeader3Text.font  = `${selectedPair.menu}`;
+            
+            fontHeader4Text.textContent  = 'This is ' + `${selectedPair.header2}` + '. This environment enables rapid switching between distinct design philosophies. When you modify the active checkbox selection above, the DOM updates its CSS custom properties instantly. Observe how the weight balance transitions seamlessly between geometric structural styles and warm, high-performance interface typography.';
+            fontHeader3Text.font  = `${selectedPair.header}`;
+
+            testerFontText.textContent  = 'This is ' + `${selectedPair.menu2}` + '.';
+            testerFontText.font  = `${selectedPair.menu}`;
+            
+
+            document.getElementById('fontHeader1').style.setProperty('font-family', selectedPair.header);
+            document.getElementById('fontHeader2').style.setProperty('font-family', selectedPair.menu);
+
+            console.log(selectedPair);
+        }
+    </script>
+</body>
+</html>

@@ -12,7 +12,24 @@ export const SNIPPET_REGISTRY: Record<string, CodeSnippet> = {
     id: "map-filter",
     title: "Transforming and Filtering with .map() and .filter()",
     keywords: ["map", "filter"],
-    code: `const discountedElectronics = rawProducts
+    code: `interface Product {
+  id: number;
+  name: string;
+  category: "Electronics" | "Apparel";
+  price: number;
+  inStock: boolean;
+}
+
+// Safe object array definition with the satisfies -operator
+const rawProducts = [
+  { id: 1, name: "Mechanical Keyboard", category: "Electronics", price: 150, inStock: true },
+  { id: 2, name: "Studio Monitor", category: "Electronics", price: 300, inStock: true },
+  { id: 3, name: "Out of Stock GPU", category: "Electronics", price: 800, inStock: false },
+  { id: 4, name: "Merino Wool Hoodie", category: "Apparel", price: 120, inStock: true }
+] satisfies Product[];
+
+// Filter and Map pipeline: Calculate 10% discount for available electronics
+const discountedElectronics = rawProducts
   .filter((p) => p.inStock && p.category === "Electronics")
   .map((p) => ({ ...p, finalPrice: +(p.price * 0.9).toFixed(2) }));`
   },
@@ -31,7 +48,7 @@ console.log(\`Fetched \${rawProducts.length} products.\`);`
   arraySlice: {
     id: "array-slice",
     title: "Paginating Arrays with .slice()",
-    keywords: ["slice", "pagination", "take", "drop"],
+    keywords: ["slice", "pagination"],
     code: `const allProductNames = rawProducts.map((product) => product.name);
 
 // Take the first two items for a spotlight.
@@ -45,6 +62,12 @@ const catalogItems = allProductNames.slice(2);`
     title: "Grouping Values with Map.prototype.getOrInsert()",
     keywords: ["Map", "getOrInsert", "grouping"],
     code: `const inventoryByCategory = new Map<string, string[]>();
+
+const rawProducts = [
+  { category: 'Electronics', name: 'Mechanical Keyboard' },
+  { category: 'Electronics', name: 'Studio Monitor' },
+  { category: 'Apparel', name: 'Merino Wool Hoodie' }
+];
 
 for (const product of rawProducts) {
   inventoryByCategory
@@ -94,10 +117,53 @@ console.log(sunMorning.toPlainTime().toString()); // "12:00:00"`
     id: "satisfies-op",
     title: "Safe Object Definition with satisfies",
     keywords: ["satisfies", "as const"],
-    code: `const theme = {
-  primary: "#0077ff",
-} satisfies Record<string, string>;`
-  }
+    code: `type MarketConfig = {
+  ticker: string;
+  retracementLevels: Record<string, number | string>;
+  isTradeable: boolean;
+};
+
+// Validates against MarketConfig, but preserves exact literal types and precise method access
+const crudeOilConfig = {
+  ticker: "CL=F",
+  retracementLevels: {
+    shallow: "23.6%",
+    midpoint: 0.500,
+    goldenPocket: 0.618,
+  },
+  isTradeable: true,
+} satisfies MarketConfig;
+
+// Inferred as: number
+const midpoint = crudeOilConfig.retracementLevels.midpoint; 
+// Inferred as: string
+const shallow = crudeOilConfig.retracementLevels.shallow;   
+// "23.6%"
+console.log(shallow.toUpperCase()); `
+  },
+
+
+  recordUnion: {
+    id: "record-key",
+    title: "Union of string literals to Record",
+    keywords: ["union", "Record", "key"],
+    code: `type UserRole = 'admin' | 'editor' | 'viewer';
+
+// TypeScript forces you to implement all three strategies
+const RedirectStrategies: Record<UserRole, string> = {
+  admin: '/dashboard/admin',
+  editor: '/dashboard/editor',
+  viewer: '/public/view', // If you delete this line => Compilation error!
+};
+
+OR
+
+const FlexibleStrategies: Record<UserRole, (id?: string | number) => string> = {
+  admin: (id) => \`/dashboard/admin/\${id}\`,
+`
+  },
+
+
 };
 
 // Dynamically compile a strict unique keyword list for your combo lookup
