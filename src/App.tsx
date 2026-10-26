@@ -66,7 +66,7 @@ export default function App() {
             <span className="flex min-w-0 flex-col">
               <span>BunSnip</span>
               <span className="hidden text-sm font-normal tracking-normal text-muted-foreground sm:block">
-                Browse focused examples, filter by operator, and copy a snippet when you need it.
+                Browse TypeScript examples, filter by operator, and copy a snippet when you need it.
               </span>
             </span>
           </a>

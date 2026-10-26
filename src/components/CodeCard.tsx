@@ -30,7 +30,7 @@ export default function CodeCard({ snippet, onKeywordSelect }: CodeCardProps) {
 
   return (
     <Card className="overflow-hidden border-border bg-card shadow-sm">
-      <CardHeader className="gap-3 border-b border-border px-5 py-5 sm:px-6">
+      <CardHeader className="gap-3 border-b border-border px-5 py-3 sm:px-6">
         <div className="flex min-w-0 items-start gap-3">
           <div className="min-w-0">
             <CardTitle className="text-lg leading-snug">
